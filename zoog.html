@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <title>p5js Template</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.3/p5.js"></script>
+    
+    <script>
+        function setup() {
+            createCanvas(800,600);
+            background(133,244,66);
+            
+            //neck
+            strokeWeight(10);
+            line(380,320,380,400);
+            line(460,320,460,400);
+            
+        
+            //head
+            smooth();
+            stroke(149,66,244);
+            strokeWeight(10);
+            ellipseMode(CORNERS);
+            ellipse(300,100,560,340);
+            
+            //eyes
+            smooth();
+            stroke(0,0,0);
+            strokeWeight(20);
+            point(380,180);
+            point(500,180);
+            
+            
+            strokeWeight(5);
+            line(520,140,600,80);
+            
+            //text circle
+            smooth();
+            ellipseMode(CORNERS);
+            ellipse(600,20,780,100);
+            
+            //mouth
+            smooth();
+            ellipseMode(CORNERS);
+            ellipse(360,260,500,300);
+            
+            //hello world text
+            textSize(15);
+            fill(255,255,255);
+            text("HELLO WORLD",640,60);
+            
+            //teeth
+            rectMode(CORNERS);
+            rect(380,270,400,290);
+            rect(400,270,420,290);
+            rect(420,270,440,290);
+            rect(440,270,460,290);
+            rect(460,270,480,290);
+            
+            //stomach
+            rectMode(CORNERS);
+            strokeWeight(10);
+            stroke(119,66,244);
+            fill(244,66,66);
+            rect(220,400,640,600);
+            
+            
+            
+            
+            
+            
+            
+            
+        }
+
+        function draw() {
+            
+        }
+    </script>
+</head>
+
+
+body>
+    <div id="code" class="container-fluid">
+        <script src="https://gist-it.appspot.com/github/ibrahime6319@hstat.org/p5js/blob/master/zoog.html?footer=0"></script>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script>
+        $(window).bind("load", function() {
+            $('#code').before($('#defaultCanvas0').remove());
+        });
+    </script>
+</body>
+
+</html>
