@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <title>Pong</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.13/p5.js"></script>
+    <script>
+        // global variables, able to be used in all functions
+        var ballX; // x-location of the ball
+        var ballY; // y-location of the ball
+        var ballSpeedX = 5; // speed of the ball horizontally
+        var ballSpeedY = 5;; // speed of the ball vertically
+        var paddleHeight = 30; // height of the paddle
+        var paddleWidth = 200
+        var score = 0;
+        var lives = 3;
+        var paddleX;
+
+
+
+        function setup() {
+            createCanvas(800, 600); // canvas size
+            noCursor(); // hides the mouse
+            ballX = 250; // start the ball at the point 200
+            ballY = 100; // top half of the canvas
+            paddleX = width - 75 // the starting position of the paddle
+
+        }
+
+        function draw() {
+
+            background(102, 0, 205); // resets the background
+            moveBall(); // ball moves in X and Y directions
+            checkCollide(); // checks for collision with walls or paddle
+            drawPaddle(); // re-draws paddle
+            drawBall(); // re-draws ball 
+
+            textAlign(CENTER);
+            textSize(40)
+            fill(255)
+            text("Score : " + score, 90, 50) //put the number score on the top left of the canvas 
+
+            text("Lives : " + lives, 700, 50) // put the number of lives on the top right of the canvas 
+
+
+        }
+
+
+        function moveBall() {
+
+
+            ballX = ballX + ballSpeedX; // updates ball location horizontally
+            ballY = ballY + ballSpeedY; // updates ball location vertically
+
+            // monitor speed/direction of ball
+            console.log("ballSpeedX: " + ballSpeedX + ", ballSpeedY: " + ballSpeedY);
+        }
+
+        function checkCollide() {
+            // left/right edges
+            if (ballX < 0 || ballX > width) {
+                ballSpeedX = ballSpeedX * -1; // switch X direction
+            }
+
+            // top edge
+            if (ballY < 0) {
+                ballSpeedY = ballSpeedY * -1; // switch Y direction 
+
+
+            }
+
+            // paddle  
+            if (ballY > height - paddleHeight - 20) { // ball is past 'goal line' vertically
+                if (ballX > paddleX - paddleWidth / 2 && ballX < paddleX + paddleWidth / 2) { // ball hits the paddle 
+                    ballSpeedY = ballSpeedY * -1.08; // switch Y direction & increase the speed of the ball
+                    ballSpeedX = map(ballX, paddleX - paddleWidth / 2, paddleX + paddleWidth / 2, -10, 10); //if the balll hits the paddle make it bounce based on where it hits.
+
+                    paddleWidth -= 5; //decrease paddle width     
+                    score++ // increase score by 1
+
+
+
+                }
+                else { // ball is on the left or right side of the paddle
+                    lives -= 1; // decrease lives by 1 
+                    ballY = random(height / 2); // when missed the ball starts again at the top half of the canvas
+                    ballSpeedY = 5; // the ball speed get back to 5 
+
+
+
+                }
+
+                if (lives == 0) { // if you miss the ball 3 times 
+                    textAlign(CENTER);
+                    textSize(50);
+                    text("Game Over", width / 2, height / 2); // diplay the text "game over" 
+                    noLoop(); //stop running the game 
+
+                }
+            }
+        }
+
+
+
+        function drawBall() {
+            noStroke(); // no outline
+            fill(250, 0, 0)
+            ellipse(ballX, ballY, 20, 20); // draw a small ball at the current (x,y) location
+
+            // ellipse(random(width),random(height*2/3),50,50);
+
+
+        }
+
+        function drawPaddle() {
+            strokeWeight(4); // border thickness of 4px 
+
+            // rectangle y-value is always at the bottom, but shifted up the height of paddle and the border of paddle
+            fill(0, 250, 0)
+            if (ballSpeedY < 0) { // if the ball vertical speed is negative
+                paddleX = mouseX
+            } //make paddlex = the position of the mouse horizontal position
+
+
+            rectMode(CENTER); //the x,y points are the center of the rectangle
+            rect(paddleX, height - paddleHeight - 4, paddleWidth, paddleHeight);
+        }
+    </script>
+</head>
+
+<body>
+    <form><input TYPE="button" onClick="history.go(0)" value="Reset"></form>
+    <div id="code" class="container-fluid">
+        <script src="https://gist-it.appspot.com/github/ibrahime6319/p5js/blob/master/Pong-Remix.html?footer=0"></script>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script>
+        $(window).bind("load", function() {
+            $('#code').before($('#defaultCanvas0').remove());
+        });
+    </script>
+</body>
+
+
+</html>
